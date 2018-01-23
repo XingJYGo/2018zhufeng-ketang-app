@@ -19,7 +19,7 @@ export default class Home extends React.Component {
     return <div>
       <HomeHeader selectCurrentLesson={this.selectCurrentLesson}/>
       <div className="content">
-        <HomeSlider/>
+        {this.props.sliders.length?<HomeSlider lists={this.props.sliders}/>:'正在加载'}
       </div>
     </div>
   }
