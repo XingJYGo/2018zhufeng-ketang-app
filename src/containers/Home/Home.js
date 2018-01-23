@@ -4,6 +4,7 @@ import HomeHeader from "./HomeHeader";
 import {connect} from 'react-redux';
 import actions from '../../store/actions/home'
 import HomeSlider from "./HomeSlider";
+import Loading from "../../components/Loading/Loading";
 @connect(state=>({...state.home}),actions)
 export default class Home extends React.Component {
   // 选择当前哪门课程，做筛选用
@@ -19,7 +20,7 @@ export default class Home extends React.Component {
     return <div>
       <HomeHeader selectCurrentLesson={this.selectCurrentLesson}/>
       <div className="content">
-        {this.props.sliders.length?<HomeSlider lists={this.props.sliders}/>:'正在加载'}
+        {this.props.sliders.length?<HomeSlider lists={this.props.sliders}/>:<Loading/>}
       </div>
     </div>
   }
