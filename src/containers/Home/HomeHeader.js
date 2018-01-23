@@ -7,6 +7,7 @@ const duration = 300;//动画时间
 const defaultStyle = {
   transition: `opacity ${duration}ms ease-in-out`,
   opacity: 0,
+  display:'none'
 };
 const transitionStyles = { //到时候可能状态是entering或者 entered
   entering: { opacity: 0 },
@@ -30,15 +31,24 @@ export default class HomeHeader extends React.Component {
               <i className="iconfont icon-guanbi"></i>:<i className="iconfont icon-liebiao"></i>}
           </div>
         </div>
-        <Transition in={this.state.isShow} timeout={duration}>
+        <Transition in={this.state.isShow} timeout={duration} onEnter={(node)=>{
+          node.style.display = 'block';
+        }} onExited={(node)=>{
+          node.style.display = 'none';
+        }}>
           {(state)=>(
             <ul className="header-menu" style={{
               ...defaultStyle,
               ...transitionStyles[state]
-            }}>
-              <li>全部课程</li>
-              <li>React课程</li>
-              <li>Vue课程</li>
+            }}
+              onClick={(e)=>{
+                this.props.selectCurrentLesson(e.target.dataset.type);
+                this.changeShow();//点完后 隐藏掉列表
+              }}
+            >
+              <li data-type="all">全部课程</li>
+              <li data-type="react">React课程</li>
+              <li data-type="vue">Vue课程</li>
             </ul>
           )}
         </Transition>
