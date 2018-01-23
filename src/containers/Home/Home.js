@@ -6,6 +6,9 @@ import actions from '../../store/actions/home'
 @connect(state=>({...state.home}),actions)
 export default class Home extends React.Component {
   // 选择当前哪门课程，做筛选用
+  componentDidMount(){
+    this.props.getSlidersAPI();
+  }
   selectCurrentLesson = (val) =>{ // val是当前选择的课程
       this.props.updateCurrentLesson(val);
   };
