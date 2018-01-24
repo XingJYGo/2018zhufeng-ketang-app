@@ -10,6 +10,8 @@ import Detail from "./containers/Detail/Detail";
 // 组件分为容器组件和基础组件
 import {Provider} from 'react-redux';
 import store from './store'
+import Login from "./containers/Login/Login";
+import Reg from "./containers/Reg/Reg";
 ReactDOM.render(
   <Provider store={store}>
     <Router>
@@ -19,6 +21,8 @@ ReactDOM.render(
           <Route path="/lesson" component={Lesson}/>
           <Route path="/profile" component={Profile}/>
           <Route path="/detail/:lessonId" component={Detail}/>
+          <Route path="/login" component={Login}/>
+          <Route path="/reg" component={Reg}/>
         </Switch>
       </App>
     </Router>

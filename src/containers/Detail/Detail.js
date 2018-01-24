@@ -18,7 +18,7 @@ export default class Detail extends React.Component {
     this.setState({lesson});
   }
   render(){
-    return <div>
+    return <div className="detail">
       <MHeader>详情页</MHeader>
       <video src={this.state.lesson.video} style={{width:'100%'}} poster={this.state.lesson.poster} controls={true}></video>
     </div>
