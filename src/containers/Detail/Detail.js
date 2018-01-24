@@ -14,8 +14,7 @@ export default class Detail extends React.Component {
     if(!lesson){
       // 用户自己写不是通过点击过来，此时需要取出id进行服务端查询（这个数据不用存redux中，因为不需要共享）
       lesson = await getLesson(this.props.match.params.lessonId);
-
-    }
+     }
     this.setState({lesson});
   }
   render(){
