@@ -18,9 +18,13 @@ export function loadMore(ele,cb){
 export function pullRefresh(ele,cb) {
   let distance = ele.offsetTop; //默认content不动时的位置
   let startY;
+  let move;
   function touchmove(e) {
-    let move = e.touches[0].pageY-startY; //移动的距离
+    move = e.touches[0].pageY-startY; //移动的距离
     if(move>0){ // 向下拉
+      if(move>80){ // 最大能拉80
+        move = 80;
+      }
       ele.style.top = move + distance + 'px';
     }else{//如果向上拉 移除事件监听
       ele.removeEventListener('touchmove',touchmove);
@@ -28,6 +32,16 @@ export function pullRefresh(ele,cb) {
     }
   }
   function touchend() { // 抬起时清空事件
+    //让move在变成0
+    if(move<80) return  ele.style.top = distance + 'px'; //没有拉大下拉刷新的点直接滚回去
+    let timer = setInterval(()=>{
+      move-=2;
+      if(move <= 0){
+        clearInterval(timer);
+        cb(); //刷新课程列表
+      }
+      ele.style.top = move + distance + 'px';
+    },8);
     ele.removeEventListener('touchmove',touchmove);
     ele.removeEventListener('touchend',touchend);
   }
