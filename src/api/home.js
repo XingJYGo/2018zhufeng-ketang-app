@@ -4,3 +4,7 @@ import axios from './index';
 export function getSliders() {
   return axios.get('/sliders')
 }
+// 获取所有课程 offset limit type
+export function getLessons(offset,limit,type) {
+  return axios.get(`/lessons/${offset}/${limit}/${type}`);
+}

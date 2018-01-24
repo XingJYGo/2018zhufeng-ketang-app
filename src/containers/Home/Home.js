@@ -12,6 +12,9 @@ export default class Home extends React.Component {
     if(this.props.sliders.length === 0){// 如果没有数据我才请求 redux里有数据了我就不请求了
       this.props.getSlidersAPI();
     }
+    if(this.props.lesson.list.length === 0){ // 如果课程没数据开始请求
+      this.props.getLessonsAPI();
+    }
   }
   selectCurrentLesson = (val) =>{ // val是当前选择的课程
       this.props.updateCurrentLesson(val);
