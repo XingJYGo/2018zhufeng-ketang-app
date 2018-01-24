@@ -30,6 +30,8 @@ function home(state=initState,action) {
           list:[...state.lesson.list,...action.payload.list] // 最新的数据
         }
       }
+    case Types.CLEAR_LESSONS:
+      return {...state,lesson:{...state.lesson,isLoading:false,offset:0,list:[],hasMore:true}}
   }
   return state;
 }

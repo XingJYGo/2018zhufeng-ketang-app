@@ -39,5 +39,5 @@ app.get('/lessons/:offset/:limit/:type',(req,res,next) => {
   limit = parseInt(limit);
   let newArrs = lists.slice(offset,offset+limit);
   let hasMore = offset+limit>=lists.length?false:true;
-  res.json({hasMore,list:newArrs});
+    res.json({hasMore,list:newArrs});
 });

@@ -16,14 +16,20 @@ let actions = {
       //请求时需要判断是否有更多
       let {
         currentLesson,
-        lesson:{hasMore,offset,limit}
+        lesson:{hasMore,offset,limit,isLoading}
       } = getState().home;
       // 如果发送请求 还需要派发一个改loading的一个方法
-      if(!hasMore)return;
+      if(!hasMore || isLoading)return; //如果正在加载也不要多次发请求了
       // 发送请求之前 状态变成了正在加载
       dispatch({type:Types.CHANGE_LOADING_STATUS,status:true});
       // 之后发送ajax请求
       dispatch({type:Types.SET_LESSONS,payload:getLessons(offset,limit,currentLesson)});
+    }
+  },
+  refreshAPI(){
+    return function (dispatch,getState) {
+      dispatch({type:Types.CLEAR_LESSONS}); // 派发清空数据
+      actions.getLessonsAPI()(dispatch,getState); // 获取最新的数据
     }
   }
 };

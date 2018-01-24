@@ -8,3 +8,6 @@ export const SET_LESSONS = 'SET_LESSONS';
 // 更改loading状态
 export const CHANGE_LOADING_STATUS = 'CHANGE_LOADING_STATUS';
 
+// 清空数据
+export const CLEAR_LESSONS = 'CLEAR_LESSONS';
+
