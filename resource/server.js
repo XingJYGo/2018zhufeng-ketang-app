@@ -58,8 +58,16 @@ app.post('/reg',function (req,res) { // {username:'123',password:'456'}
     // 摘要算法 md5： 不可逆  加密后的长度全部一样 如果有一点不一样加密出的结果也不一样
     password = crypto.createHash('md5').update(password).digest('base64');
     userList.push({username,password});
-    console.log(userList);
     res.json({user:null,msg:'',success:'恭喜你注册成功',err:0});
   }
 });
-
+app.post('/login',function (req,res) { // {username,123456}
+  let {username,password} = req.body;
+  password = crypto.createHash('md5').update(password).digest('base64');
+  let user = userList.find(item=>(item.username===username)&&(item.password===password));
+  if(user){ // 有这个用户
+    res.json({user:username,msg:'',success:'恭喜登录成功',err:0});
+  }else{ // 用户不存在
+    res.json({user:null,msg:'用户名或密码不正确',success:'',err:1});
+  }
+});
