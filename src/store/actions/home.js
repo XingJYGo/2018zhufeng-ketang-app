@@ -3,7 +3,11 @@ import {getSliders,getLessons} from '../../api/home'
 let actions = {
   // 更新当前选择的课程
   updateCurrentLesson(lesson){
-    return {type:Types.SET_CURRENT_LESSON,lesson}
+    return function (dispatch,getState) {
+      dispatch({type:Types.SET_CURRENT_LESSON,lesson});//更改课程类型
+      // 之后要清空数据 并且根据当前的类型重新获取内容
+      actions.refreshAPI()(dispatch,getState)
+    }
   },
   getSlidersAPI(){
     return function (dispatch,getState) { // redux-thunk
