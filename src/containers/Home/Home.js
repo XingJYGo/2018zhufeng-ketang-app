@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import actions from '../../store/actions/home'
 import HomeSlider from "./HomeSlider";
 import Loading from "../../components/Loading/Loading";
+import HomeList from "./HomeList";
 @connect(state=>({...state.home}),actions)
 export default class Home extends React.Component {
   // 选择当前哪门课程，做筛选用
@@ -24,6 +25,10 @@ export default class Home extends React.Component {
       <HomeHeader selectCurrentLesson={this.selectCurrentLesson}/>
       <div className="content">
         {this.props.sliders.length?<HomeSlider lists={this.props.sliders}/>:<Loading/>}
+        <h2 className="home-title">
+          <i className="iconfont icon-wode_kecheng"></i>  <span>我的课程</span>
+        </h2>
+        <HomeList lists={this.props.lesson.list}/>
       </div>
     </div>
   }
