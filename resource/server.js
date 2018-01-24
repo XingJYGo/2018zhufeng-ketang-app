@@ -41,3 +41,10 @@ app.get('/lessons/:offset/:limit/:type',(req,res,next) => {
   let hasMore = offset+limit>=lists.length?false:true;
     res.json({hasMore,list:newArrs});
 });
+
+
+app.get('/lesson/:id',function (req,res) {
+  let {id} = req.params;
+  let lesson = lessons.find(item=>parseInt(item.id) === parseInt(id)) || {};
+  res.json(lesson);
+});

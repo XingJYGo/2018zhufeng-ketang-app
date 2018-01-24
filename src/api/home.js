@@ -8,3 +8,8 @@ export function getSliders() {
 export function getLessons(offset,limit,type) {
   return axios.get(`/lessons/${offset}/${limit}/${type}`);
 }
+
+// 获取某一门课程 需要参数id
+export function getLesson(id) {
+  return axios.get(`/lesson/${id}`);
+}
