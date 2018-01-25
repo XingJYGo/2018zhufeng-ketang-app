@@ -8,7 +8,9 @@ let initState = {
 function session(state=initState,action) {
   switch (action.type){
     case Types.SET_USER_INFO: // {user,msg,success,err}
-      return {...action.user} // 用获取的数据放到redux中
+      return {...action.user}; // 用获取的数据放到redux中
+    case Types.CLEAR_MESSAGE:
+      return {...state,...action.info}
   }
   return state;
 }

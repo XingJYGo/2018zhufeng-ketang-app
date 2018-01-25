@@ -13,3 +13,6 @@ export const CLEAR_LESSONS = 'CLEAR_LESSONS';
 
 // 登录或注册时 需要把获得的数据存入到redux中
 export const SET_USER_INFO = 'SET_USER_INFO';
+
+// 清空成功或失败的内容
+export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
