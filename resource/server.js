@@ -7,7 +7,7 @@ app.use(bodyParser.json()); // 解析请求体的中间件 req.body上为解析�
 // cors是一个第三方模块 专门解决跨域
 app.use(session({
   resave:true,
-  saveUninitialized:true,
+  saveUninitialized:false,
   secret:'zfpx'
 })); // req.session进行设置内容了
 app.use(function (req,res,next) {

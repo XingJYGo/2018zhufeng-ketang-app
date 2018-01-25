@@ -12,13 +12,14 @@ import {Provider} from 'react-redux';
 import store from './store'
 import Login from "./containers/Login/Login";
 import Reg from "./containers/Reg/Reg";
+import ProtectedRoute from "./ProtectedRoute";
 ReactDOM.render(
   <Provider store={store}>
     <Router>
       <App>
         <Switch> {/*匹配path 匹配后渲染 并且不再继续渲染*/}
           <Route path="/" exact={true} component={Home}/>
-          <Route path="/lesson" component={Lesson}/>
+          <ProtectedRoute path="/lesson" component={Lesson}/>
           <Route path="/profile" component={Profile}/>
           <Route path="/detail/:lessonId" component={Detail}/>
           <Route path="/login" component={Login}/>
