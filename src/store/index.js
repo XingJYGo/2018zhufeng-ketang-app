@@ -1,9 +1,7 @@
-import {createStore,applyMiddleware} from 'redux';
-import reduxLogger from 'redux-logger';
-import reduxThunk from 'redux-thunk';
-import reduxPromise from 'redux-promise';
-import reducer from './reducers/index';
+import {createStore} from '../redux';
 
-let store = createStore(reducer,applyMiddleware(reduxLogger,reduxThunk,reduxPromise));
-window._store = store; //为了测试用
+import reducer from './reducer';
+
+let store = createStore(reducer);
+window._store = store;
 export default store;
