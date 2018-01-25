@@ -9,6 +9,16 @@ export default {
     }
   },
   minus(){
-    return {type:Types.DECREMENT,amount:3}
+    return {
+      type:Types.DECREMENT,
+      payload:new Promise((resolve,reject)=>{
+        reject({amount:3})
+      })
+    }
+    /*return new Promise((resolve)=>{
+      setTimeout(()=>{
+        resolve({type:Types.DECREMENT,amount:5});
+      },2000)
+    })*/
   }
 }

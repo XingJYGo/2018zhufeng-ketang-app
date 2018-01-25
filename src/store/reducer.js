@@ -4,7 +4,8 @@ export default function (state={number:0},action) {
     case Types.INCREMENT:
       return {number:state.number+action.amount};
     case Types.DECREMENT:
-      return {number:state.number-action.amount};
+      console.log(action)
+      return {number:state.number-action.payload.amount};
   }
   return state;
 }
