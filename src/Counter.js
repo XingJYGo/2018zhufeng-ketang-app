@@ -13,13 +13,9 @@ export default class Counter extends React.Component {
   }
   render(){
     return <div>
-      <button onClick={()=>{
-        store.dispatch(actions.add())
-      }}>+</button>
+      <button onClick={()=>{store.dispatch(actions.add())}}>+</button>
       {this.state.number}
-      <button onClick={()=>{
-        store.dispatch(actions.minus())
-      }}>-</button>
+      <button onClick={()=>{store.dispatch(actions.minus())}}>-</button>
       </div>
   }
 }
