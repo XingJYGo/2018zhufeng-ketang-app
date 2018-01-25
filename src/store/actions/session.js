@@ -1,5 +1,5 @@
 import * as Types from '../action-types';
-import {toReg} from '../../api/session'
+import {toReg,toLogin} from '../../api/session'
 let actions = {
   toRegAPI(username,password,history){ // history是组件中的
     // 如果注册成功了，跳转页面 跳转到登录页
@@ -16,6 +16,18 @@ let actions = {
   },
   clearMessage(){
     return {type:Types.CLEAR_MESSAGE,info:{msg:'',success:'',err:0}}
+  },
+  toLoginAPI(username,password,history){
+    return function (dispatch,getState) {
+      toLogin(username,password).then(function (data) {
+        dispatch({type:Types.SET_USER_INFO,user:data});
+        if(data.err===0){
+          setTimeout(()=>{
+            history.push('/profile'); // 成功跳转到个人中心页面
+          },1000)
+        }
+      })
+    }
   }
 };
 export default actions

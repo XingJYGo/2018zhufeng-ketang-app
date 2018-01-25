@@ -4,3 +4,8 @@ import axios from './index';
 export function toReg(username,password) {
   return axios.post('/reg',{username,password});
 }
+// 登录接口
+
+export function toLogin(username,password) {
+  return axios.post('/login',{username,password})
+}
