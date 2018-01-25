@@ -2,29 +2,36 @@ import {createStore} from '../redux';
 
 import reducer from './reducer';
 // 改写了dispatch的方法
-let reduxPromise = store=>dispatch=>action=>{ //action可能是promise
-  if(action.then){ // 说明是promise
-    action.then(dispatch); //dispatch就是一个函数，所以没有处理失败
-  }else if(action.payload&&action.payload.then){
-    action.payload.then(function (data) { // promise是异步函数
-       dispatch({...action,payload:data})
-    },function (err) {
-      console.log({...action,payload:err})
-       dispatch({...action,payload:err})
-    });
-    return;
+function compose(...fns) {
+  return function (...args) {
+    let last = fns.pop(); // 最后一个函数addFirst
+    return fns.reduceRight(function (prev,next,curIndex,arr) {
+      return next(prev);
+    },last(...args))
   }
-  return dispatch(action);
+}
+// logger1的dispatch其实是logger2的最后一个函数
+let logger1 = store => next => action =>{
+  console.log('1',store.getState().number);
+  //next(action); // 进行动作的派发
+  console.log('1',store.getState().number);
+};
+let logger2 = store => next => action =>{
+  console.log('2',store.getState().number);
+  next(action); // 进行动作的派发
+  console.log('2',store.getState().number);
 };
 // 应用中间件 redux内部的方法
-let applyMiddleWare = middleware => createStore => reducer =>{
+let applyMiddleWare = (...middlewares) => createStore => reducer =>{
   let store = createStore(reducer); // 创建一个store
-  let middle = middleware(store);
-  let dispatch = middle(store.dispatch);
+  let middles = middlewares.map(middleware=>{ // 将两个middleware都执行
+    return middleware(store)
+  });//middles = [fn,fn]
+  let dispatch = compose(...middles)(store.dispatch);
   return {...store,dispatch}
 };
 // applyMiddleware可以返回一个store，store中的dispatch方法是logger最后的返回值
-let store = applyMiddleWare(reduxPromise)(createStore)(reducer);
+let store = applyMiddleWare(logger1,logger2)(createStore)(reducer);
 export default store;
 
 
