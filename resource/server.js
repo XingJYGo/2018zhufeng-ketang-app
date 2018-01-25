@@ -1,14 +1,22 @@
 let express = require('express');
+let session = require('express-session'); // session中间件
 let app = express();
 app.listen(3000);
 let bodyParser = require('body-parser');
 app.use(bodyParser.json()); // 解析请求体的中间件 req.body上为解析后的结果
+// cors是一个第三方模块 专门解决跨域
+app.use(session({
+  resave:true,
+  saveUninitialized:true,
+  secret:'zfpx'
+})); // req.session进行设置内容了
 app.use(function (req,res,next) {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", "http://localhost:9000");
+  res.header("Access-Control-Allow-Credentials",true);
   res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-  res.header("X-Powered-By",' 3.2.1')
-  if(req.method=="OPTIONS") res.send(200);/*让options请求快速返回*/
+  res.header("X-Powered-By",' 3.2.1');
+  if(req.method=="OPTIONS") res.send();/*让options请求快速返回*/
   else  next();
 });
 let axios = require('axios');
@@ -66,8 +74,13 @@ app.post('/login',function (req,res) { // {username,123456}
   password = crypto.createHash('md5').update(password).digest('base64');
   let user = userList.find(item=>(item.username===username)&&(item.password===password));
   if(user){ // 有这个用户
+    req.session.user = username; //相当于登录成功后将用户名保存在session中了
     res.json({user:username,msg:'',success:'恭喜登录成功',err:0});
   }else{ // 用户不存在
     res.json({user:null,msg:'用户名或密码不正确',success:'',err:1});
   }
+});
+app.get('/validate',function (req,res) {
+  // 用于校验用户是否登录
+  res.json({user:req.session.user,msg:'',err:0,success:''});
 });

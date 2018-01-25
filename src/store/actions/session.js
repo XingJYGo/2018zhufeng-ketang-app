@@ -1,5 +1,5 @@
 import * as Types from '../action-types';
-import {toReg,toLogin} from '../../api/session'
+import {toReg,toLogin,toValidate} from '../../api/session'
 let actions = {
   toRegAPI(username,password,history){ // history是组件中的
     // 如果注册成功了，跳转页面 跳转到登录页
@@ -27,6 +27,14 @@ let actions = {
           },1000)
         }
       })
+    }
+  },
+  toValidateAPI(){
+    return function (dispatch,getState) {
+      toValidate().then(function (data) {
+        dispatch({type:Types.SET_USER_INFO,user:data})
+      });
+
     }
   }
 };
