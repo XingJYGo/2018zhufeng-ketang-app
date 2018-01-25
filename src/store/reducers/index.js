@@ -1,7 +1,9 @@
 import {combineReducers} from 'redux'
 import home from './home';
+import session from './session';
 
-// {home:{currentLesson:'all'}}
+// {home:{currentLesson:'all'},session:{user,err,msg,success}}
 export default combineReducers({
-  home
+  home,
+  session
 });

@@ -11,3 +11,5 @@ export const CHANGE_LOADING_STATUS = 'CHANGE_LOADING_STATUS';
 // 清空数据
 export const CLEAR_LESSONS = 'CLEAR_LESSONS';
 
+// 登录或注册时 需要把获得的数据存入到redux中
+export const SET_USER_INFO = 'SET_USER_INFO';
